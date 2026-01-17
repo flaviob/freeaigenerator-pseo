@@ -1,0 +1,25 @@
+{
+  "name": "freeaigenerator-content-generator",
+  "version": "1.0.0",
+  "description": "AI-powered content generation for programmatic SEO",
+  "type": "module",
+  "main": "generate-articles.js",
+  "scripts": {
+    "generate": "node generate-articles.js",
+    "import": "node import-to-strapi.js",
+    "generate-and-import": "node generate-articles.js && node import-to-strapi.js",
+    "test": "node generate-articles.js --limit 5"
+  },
+  "keywords": [
+    "seo",
+    "content-generation",
+    "ai",
+    "strapi"
+  ],
+  "author": "SWAT SEO Agency",
+  "license": "MIT",
+  "dependencies": {
+    "openai": "^4.20.1",
+    "dotenv": "^16.3.1"
+  }
+}
