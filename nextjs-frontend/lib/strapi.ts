@@ -96,9 +96,9 @@ export async function getAllSlugs() {
   ]);
 
   return {
-    tools: toolPages.map(page => page.attributes.slug),
-    comparisons: comparisonPages.map(page => page.attributes.slug),
-    categories: categoryPages.map(page => page.attributes.slug),
+    tools: toolPages.map(page => page.slug),
+    comparisons: comparisonPages.map(page => page.slug),
+    categories: categoryPages.map(page => page.slug),
   };
 }
 

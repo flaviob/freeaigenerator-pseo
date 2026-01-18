@@ -24,13 +24,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const { metaTitle, metaDescription, slug, lastUpdated } = page.attributes;
+  const { metaTitle, metaDescription, slug, lastUpdated, createdAt } = page;
 
   return genMeta({
     title: metaTitle,
     description: metaDescription,
     slug,
-    publishedTime: page.attributes.createdAt,
+    publishedTime: createdAt,
     modifiedTime: lastUpdated,
   });
 }
@@ -57,14 +57,16 @@ export default async function ToolPage({ params }: Props) {
     isFree,
     estimatedReadTime,
     lastUpdated,
-  } = page.attributes;
+    metaDescription,
+    createdAt,
+  } = page;
 
   // Generate schema markup
   const articleSchema = generateArticleSchema({
     title,
-    description: page.attributes.metaDescription,
+    description: metaDescription,
     slug: params.slug,
-    publishedTime: page.attributes.createdAt,
+    publishedTime: createdAt,
     modifiedTime: lastUpdated,
   });
 
