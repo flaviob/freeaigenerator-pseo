@@ -102,11 +102,6 @@
       "type": "richtext",
       "required": true
     },
-    "cta": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.cta"
-    },
     "estimatedReadTime": {
       "type": "integer",
       "default": 7

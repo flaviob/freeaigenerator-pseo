@@ -93,11 +93,6 @@
       "type": "richtext",
       "required": true
     },
-    "cta": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.cta"
-    },
     "isFreeOnly": {
       "type": "boolean",
       "default": false
