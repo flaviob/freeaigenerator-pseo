@@ -17,49 +17,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-slate-900 border-b border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <nav className="flex items-center justify-between">
-              <a href="/" className="text-2xl font-bold text-blue-400">
-                Free AI Generator
-              </a>
-              <div className="flex gap-6 text-slate-300">
-                <a href="/" className="hover:text-blue-400 transition">Home</a>
-                <a href="/best-ai-tools" className="hover:text-blue-400 transition">Tools</a>
-                <a href="/blog" className="hover:text-blue-400 transition">Blog</a>
-              </div>
+        <header className="bg-[#1a1a1a] text-white py-4 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+          <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between">
+            <a href="/" className="text-2xl font-bold">
+              FreeAIGenerator
+            </a>
+            <nav className="flex gap-8">
+              <a href="/" className="opacity-90 hover:opacity-100 transition-opacity">Home</a>
+              <a href="/tools" className="opacity-90 hover:opacity-100 transition-opacity">Tools</a>
+              <a href="/blog" className="opacity-90 hover:opacity-100 transition-opacity">Blog</a>
             </nav>
           </div>
         </header>
         <main>{children}</main>
-        <footer className="bg-slate-950 text-white mt-20 border-t border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 py-12">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">Free AI Generator</h3>
-                <p className="text-gray-400">Your ultimate guide to AI tools and generators</p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-4">Popular Categories</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li><a href="/category/image" className="hover:text-white">Image Generators</a></li>
-                  <li><a href="/category/video" className="hover:text-white">Video Generators</a></li>
-                  <li><a href="/category/text" className="hover:text-white">Text Generators</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-4">Resources</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li><a href="/about" className="hover:text-white">About</a></li>
-                  <li><a href="/contact" className="hover:text-white">Contact</a></li>
-                  <li><a href="/privacy" className="hover:text-white">Privacy Policy</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Free AI Generator. All rights reserved.</p>
-            </div>
-          </div>
+        <footer className="bg-[#1f2937] text-[#9ca3af] py-8 mt-16 text-center">
+          <p>&copy; 2026 FreeAIGenerator. All rights reserved.</p>
         </footer>
       </body>
     </html>
