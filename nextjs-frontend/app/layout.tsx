@@ -17,22 +17,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-white border-b">
+        <header className="bg-slate-900 border-b border-slate-800">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <nav className="flex items-center justify-between">
-              <a href="/" className="text-2xl font-bold text-blue-600">
+              <a href="/" className="text-2xl font-bold text-blue-400">
                 Free AI Generator
               </a>
-              <div className="flex gap-6">
-                <a href="/" className="hover:text-blue-600">Home</a>
-                <a href="/best-ai-tools" className="hover:text-blue-600">Tools</a>
-                <a href="/blog" className="hover:text-blue-600">Blog</a>
+              <div className="flex gap-6 text-slate-300">
+                <a href="/" className="hover:text-blue-400 transition">Home</a>
+                <a href="/best-ai-tools" className="hover:text-blue-400 transition">Tools</a>
+                <a href="/blog" className="hover:text-blue-400 transition">Blog</a>
               </div>
             </nav>
           </div>
         </header>
         <main>{children}</main>
-        <footer className="bg-gray-900 text-white mt-20">
+        <footer className="bg-slate-950 text-white mt-20 border-t border-slate-800">
           <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid md:grid-cols-3 gap-8">
               <div>

@@ -3,19 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 15, 23, 42;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -26,17 +21,19 @@ body {
 
 /* Custom prose styles for rich text content */
 .prose {
-  color: #374151;
+  color: #e2e8f0;
 }
 
 .prose h2 {
   margin-top: 2em;
   margin-bottom: 1em;
+  color: #f1f5f9;
 }
 
 .prose h3 {
   margin-top: 1.6em;
   margin-bottom: 0.6em;
+  color: #f1f5f9;
 }
 
 .prose p {
@@ -54,4 +51,8 @@ body {
 .prose li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+.prose strong {
+  color: #f1f5f9;
 }
