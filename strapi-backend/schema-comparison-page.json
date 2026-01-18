@@ -1,0 +1,131 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comparison_pages",
+  "info": {
+    "singularName": "comparison-page",
+    "pluralName": "comparison-pages",
+    "displayName": "Comparison Page",
+    "description": "Tool vs Tool comparison pages"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "metaTitle": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
+    },
+    "tool1Name": {
+      "type": "string",
+      "required": true
+    },
+    "tool2Name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "image",
+        "video",
+        "text",
+        "audio",
+        "design",
+        "character",
+        "photo",
+        "other"
+      ],
+      "required": true
+    },
+    "introduction": {
+      "type": "richtext",
+      "required": true
+    },
+    "tool1Overview": {
+      "type": "richtext",
+      "required": true
+    },
+    "tool2Overview": {
+      "type": "richtext",
+      "required": true
+    },
+    "comparisonTable": {
+      "type": "json",
+      "required": true
+    },
+    "featureComparison": {
+      "type": "richtext",
+      "required": true
+    },
+    "pricingComparison": {
+      "type": "richtext",
+      "required": true
+    },
+    "prosConsTool1": {
+      "type": "json",
+      "required": true
+    },
+    "prosConsTool2": {
+      "type": "json",
+      "required": true
+    },
+    "winner": {
+      "type": "string",
+      "required": false
+    },
+    "verdict": {
+      "type": "richtext",
+      "required": true
+    },
+    "faq": {
+      "type": "json",
+      "required": false
+    },
+    "conclusion": {
+      "type": "richtext",
+      "required": true
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "estimatedReadTime": {
+      "type": "integer",
+      "default": 7
+    },
+    "lastUpdated": {
+      "type": "date",
+      "required": true
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "schemaMarkup": {
+      "type": "json",
+      "required": false
+    }
+  }
+}
