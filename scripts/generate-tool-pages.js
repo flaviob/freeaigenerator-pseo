@@ -4,7 +4,7 @@
  * These are primary landing pages explaining what each generator type is
  */
 
-const { keywords } = require('../data/keywords.js');
+import { keywords } from '../data/keywords.js';
 
 const STRAPI_URL = 'https://freeaigenerator-pseo-production.up.railway.app';
 const STRAPI_API_TOKEN = '8d9fa930b45fcfd8a4981ead1a503eb875a26001729d1ada9af94e0d511675e8066090a8a584b199416110cc6c52defd4918c968bebf795fb476d6ec17afec990f6ddb4a33e7b2eda80422cb8bd53112dd4721d2bd4b65e8b12bafc1964e3f97965b8af6e58517e9178e1aeaebf9fa7bd525edb121135e4cbd07899bfaa09fe9';
@@ -63,7 +63,7 @@ function generateToolPageContent(keyword) {
     slug,
     category,
     primaryKeyword: keyword,
-    metaTitle: `${title} - ${title.includes('Free') ? 'Best Tools' : 'Create ' + type.charAt(0).toUpperCase() + type.slice(1) + ' with AI'} | FreeAIGenerator`,
+    metaTitle: `${title} - AI Tools Guide 2026`,
     metaDescription: `Discover how ${keyword}s work, explore top tools, and learn to create ${type} content with AI. Compare free and paid options.`,
     introduction: `<p>${title}s have transformed how we create ${type} content. Whether you're a professional, hobbyist, or business owner, understanding and using ${keyword} tools can significantly enhance your creative workflow and output quality.</p>`,
     whatIsIt: `<p>An ${keyword} is an AI-powered tool that creates ${type} content from text prompts or other inputs. Using advanced machine learning models, these generators can produce high-quality ${type} content without requiring traditional skills or expensive equipment.</p>\n\n<p>The technology works by training on vast datasets to understand patterns and relationships, then applying this knowledge to generate new, original content based on your specifications.</p>`,

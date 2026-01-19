@@ -4,7 +4,7 @@
  * These are roundup pages comparing multiple tools
  */
 
-const { keywords } = require('../data/keywords.js');
+import { keywords } from '../data/keywords.js';
 
 const STRAPI_URL = 'https://freeaigenerator-pseo-production.up.railway.app';
 const STRAPI_API_TOKEN = '8d9fa930b45fcfd8a4981ead1a503eb875a26001729d1ada9af94e0d511675e8066090a8a584b199416110cc6c52defd4918c968bebf795fb476d6ec17afec990f6ddb4a33e7b2eda80422cb8bd53112dd4721d2bd4b65e8b12bafc1964e3f97965b8af6e58517e9178e1aeaebf9fa7bd525edb121135e4cbd07899bfaa09fe9';
@@ -116,7 +116,7 @@ function generateCategoryPageContent(keyword) {
       rows: [
         { feature: 'Free Tier', values: toolsList.map(t => t.isFree ? '✓' : '✗') },
         { feature: 'Quality', values: toolsList.map(t => t.rating >= 4.5 ? 'Excellent' : 'Very Good') },
-        { feature: 'Ease of Use', values: ['Medium', 'Easy', 'Hard'] },
+        { feature: 'Ease of Use', values: toolsList.map((_, idx) => ['Medium', 'Easy', 'Hard'][idx] || 'Medium') },
         { feature: 'Commercial Use', values: toolsList.map(() => '✓') }
       ]
     },
@@ -140,7 +140,7 @@ function generateCategoryPageContent(keyword) {
         answer: `Most ${keyword}s allow commercial use, but terms vary. Always review the specific licensing terms before using generated content commercially.`
       }
     ],
-    conclusion: `Choosing the right ${keyword} can transform your creative workflow. ${toolsList[0].name} leads in quality, ${toolsList[1].name} offers the best free experience, and ${toolsList[2].name} provides unlimited flexibility.\n\nStart by testing free options to understand your needs, then upgrade to premium tools if necessary. The best tool is the one that fits your specific requirements and workflow.`,
+    conclusion: `Choosing the right ${keyword} can transform your creative workflow. ${toolsList[0].name} leads in quality${toolsList[1] ? ', ' + toolsList[1].name + ' offers the best free experience' : ''}${toolsList[2] ? ', and ' + toolsList[2].name + ' provides unlimited flexibility' : ''}.\n\nStart by testing free options to understand your needs, then upgrade to premium tools if necessary. The best tool is the one that fits your specific requirements and workflow.`,
     isFreeOnly,
     year: 2026,
     estimatedReadTime: 10,
@@ -198,11 +198,14 @@ async function main() {
       // Small delay to avoid overwhelming the API
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      if (error.message.includes('already exists') || error.message.includes('unique')) {
+      if (error.message && (error.message.includes('already exists') || error.message.includes('unique'))) {
         console.log(`⏭️  Skipped (exists): ${keyword}`);
         skipped++;
       } else {
-        console.error(`❌ Error (${keyword}):`, error.message);
+        console.error(`❌ Error (${keyword}):`, error.message || error);
+        if (error.stack) {
+          console.error('Stack trace:', error.stack.split('\n').slice(0, 3).join('\n'));
+        }
         errors++;
       }
     }
