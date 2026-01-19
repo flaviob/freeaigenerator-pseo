@@ -1,7 +1,10 @@
-import { getToolPages } from '@/lib/strapi';
+import { getToolPages, getCategoryPages } from '@/lib/strapi';
 
 export default async function Home() {
-  const toolPages = await getToolPages();
+  const [toolPages, categoryPages] = await Promise.all([
+    getToolPages(6),
+    getCategoryPages(3)
+  ]);
 
   return (
     <div className="max-w-[1200px] mx-auto px-8 py-12">
@@ -53,12 +56,57 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Top Lists & Guides */}
+      {categoryPages && categoryPages.length > 0 && (
+        <section className="mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold text-white">Top Lists & Comparisons</h2>
+            <a href="/categories" className="text-[#ef4444] hover:text-[#dc2626] font-semibold">
+              View All →
+            </a>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {categoryPages.map((page: any) => (
+              <a
+                key={page.id}
+                href={`/category/${page.slug}`}
+                className="p-6 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg hover:shadow-lg hover:border-[#ef4444] transition"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="px-3 py-1 bg-[#fbbf24] text-[#0a0a0a] rounded-full text-sm font-semibold capitalize">
+                    {page.listType}
+                  </span>
+                  {page.isFreeOnly && (
+                    <span className="px-3 py-1 bg-[#10b981] text-white rounded-full text-sm">
+                      Free Only
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-white">{page.title}</h3>
+                <p className="text-[#9ca3af] text-sm mb-3 line-clamp-2">
+                  {page.metaDescription}
+                </p>
+                <div className="flex items-center gap-3 text-xs text-[#6b7280]">
+                  <span>{page.estimatedReadTime} min read</span>
+                  {page.year && <span>{page.year}</span>}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Latest Tools */}
       <section id="tools" className="mb-16">
-        <h2 className="text-3xl font-bold mb-8 text-white">Latest AI Tools</h2>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold text-white">AI Tool Guides</h2>
+          <a href="/tools" className="text-[#ef4444] hover:text-[#dc2626] font-semibold">
+            View All →
+          </a>
+        </div>
         {toolPages && toolPages.length > 0 ? (
           <div className="grid md:grid-cols-3 gap-6">
-            {toolPages.slice(0, 6).map((tool: any) => (
+            {toolPages.map((tool: any) => (
               <a
                 key={tool.id}
                 href={`/${tool.slug}`}

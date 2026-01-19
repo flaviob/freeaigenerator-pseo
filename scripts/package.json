@@ -1,0 +1,11 @@
+{
+  "name": "strapi-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "create-content": "tsx create-strapi-content.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
