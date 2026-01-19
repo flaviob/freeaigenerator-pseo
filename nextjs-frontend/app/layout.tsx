@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Free AI Generator - Best AI Tools & Generators',
+  title: 'Free AI Generator - Best AI Tools & Generators 2026',
   description: 'Discover the best free AI generators for images, videos, text, and more. Compare tools, read reviews, and find the perfect AI solution for your needs.',
 }
 
