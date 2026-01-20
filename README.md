@@ -107,3 +107,6 @@ The content generator creates SEO-optimized articles using:
 
 ## Author
 Flavio Amiel - SWAT SEO Agency
+
+---
+*Updated: 2026-01-20*
