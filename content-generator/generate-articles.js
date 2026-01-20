@@ -31,14 +31,14 @@ Requirements:
 - Focus on user intent and value
 - Be factually accurate about AI technology
 - Don't make specific tool recommendations without disclaimers
-- Add "as of 2025" where relevant
+- Add "as of 2026" where relevant
 - NO fluff or filler - every sentence should add value
 - Write for humans, not search engines`,
 
     comparison: `Write a detailed comparison article: "${keyword}"
 
 Structure:
-- Title: "${keyword} - Which is Better in 2025?"
+- Title: "${keyword} - Which is Better in 2026?"
 - Meta Description (max 160 chars)
 - Introduction (150 words): Setup the comparison, why it matters
 - Tool 1 Overview (200 words): Features, pricing, target users
@@ -60,7 +60,7 @@ Requirements:
     category: `Write a comprehensive roundup article: "${keyword}"
 
 Structure:
-- Title: "${keyword} - [Number] Best Options in 2025"
+- Title: "${keyword} - [Number] Best Options in 2026"
 - Meta Description (max 160 chars)
 - Introduction (200 words): What we're comparing, methodology
 - Selection Criteria (150 words): How we chose these tools
@@ -184,8 +184,8 @@ async function generateComparisonPages() {
         const structured = {
           title: keyword,
           slug: keyword.toLowerCase().replace(/\s+/g, '-'),
-          metaTitle: `${keyword} - Complete Comparison 2025`,
-          metaDescription: `Compare ${tools[i]} vs ${tools[j]}. Features, pricing, and which AI tool is best for you.`,
+          metaTitle: `${keyword} - Which is Better in 2026?`,
+          metaDescription: `${tools[i]} vs ${tools[j]}: Compare features, pricing, and performance. Find out which AI tool is the best choice for your needs.`,
           tool1Name: tools[i],
           tool2Name: tools[j],
           category: 'image',
@@ -208,25 +208,28 @@ async function generateCategoryPages() {
   const categoryPages = [];
 
   const listTypes = [
-    'Best AI Image Generators',
-    'Best Free AI Image Generators',
-    'Top AI Video Generators',
-    'Best AI Voice Generators',
-    'Free AI Logo Generators'
+    { title: 'Best AI Image Generators', category: 'image', listType: 'best' },
+    { title: 'Best Free AI Image Generators', category: 'image', listType: 'free' },
+    { title: 'Top AI Video Generators', category: 'video', listType: 'top' },
+    { title: 'Best AI Voice Generators', category: 'audio', listType: 'best' },
+    { title: 'Best AI Logo Generators', category: 'design', listType: 'best' },
+    { title: 'Best AI Text Generators', category: 'text', listType: 'best' },
+    { title: 'Free AI Art Generators', category: 'image', listType: 'free' },
+    { title: 'Best AI Music Generators', category: 'audio', listType: 'best' }
   ];
 
-  for (const listTitle of listTypes) {
-    console.log(`Generating: ${listTitle}`);
-    
-    const content = await generateArticle(listTitle, 'image', 'category');
+  for (const item of listTypes) {
+    console.log(`Generating: ${item.title}`);
+
+    const content = await generateArticle(item.title, item.category, 'category');
     if (content) {
       const structured = {
-        title: listTitle,
-        slug: listTitle.toLowerCase().replace(/\s+/g, '-'),
-        metaTitle: `${listTitle} - 2025 Guide`,
-        metaDescription: `Discover the ${listTitle.toLowerCase()} in 2025. Expert reviews and recommendations.`,
-        category: 'image',
-        listType: 'best',
+        title: item.title,
+        slug: item.title.toLowerCase().replace(/\s+/g, '-'),
+        metaTitle: `${item.title} in 2026 - Expert Reviews & Comparisons`,
+        metaDescription: `Compare the ${item.title.toLowerCase()} of 2026. In-depth reviews, pricing, and features to help you choose the right tool.`,
+        category: item.category,
+        listType: item.listType,
         content: content,
         lastUpdated: new Date().toISOString().split('T')[0]
       };

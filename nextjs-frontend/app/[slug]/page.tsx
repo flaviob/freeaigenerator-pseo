@@ -55,7 +55,6 @@ export default async function ToolPage({ params }: Props) {
     conclusion,
     category,
     isFree,
-    estimatedReadTime,
     lastUpdated,
   } = page.attributes;
 
@@ -96,7 +95,6 @@ export default async function ToolPage({ params }: Props) {
                 Free
               </span>
             )}
-            <span>{estimatedReadTime} min read</span>
             <span>Updated: {new Date(lastUpdated).toLocaleDateString()}</span>
           </div>
 
