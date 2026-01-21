@@ -90,7 +90,9 @@ export default async function ToolPage({ params }: Props) {
       <div className="max-w-[1200px] mx-auto px-8 py-4 text-sm">
         <a href="/" className="text-[#ef4444] hover:underline">Home</a>
         <span className="text-[#6b7280] mx-2">›</span>
-        <a href={`/category/${category.toLowerCase()}`} className="text-[#ef4444] hover:underline capitalize">{category}</a>
+        <a href="/tools" className="text-[#ef4444] hover:underline">Tools</a>
+        <span className="text-[#6b7280] mx-2">›</span>
+        <span className="text-[#9ca3af] capitalize">{category}</span>
         <span className="text-[#6b7280] mx-2">›</span>
         <span className="text-[#9ca3af]">{title}</span>
       </div>

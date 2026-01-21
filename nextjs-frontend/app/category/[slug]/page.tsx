@@ -62,7 +62,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
             <li>/</li>
             <li><a href="/categories" className="hover:text-[#ef4444] transition">Categories</a></li>
             <li>/</li>
-            <li className="text-white capitalize">{category}</li>
+            <li className="text-white">{title}</li>
           </ol>
         </nav>
 
