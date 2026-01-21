@@ -25,7 +25,7 @@ export default function RootLayout({
             <nav className="flex gap-8">
               <a href="/" className="opacity-90 hover:opacity-100 transition-opacity">Home</a>
               <a href="/tools" className="opacity-90 hover:opacity-100 transition-opacity">Tools</a>
-              <a href="/blog" className="opacity-90 hover:opacity-100 transition-opacity">Blog</a>
+              <a href="/categories" className="opacity-90 hover:opacity-100 transition-opacity">Categories</a>
             </nav>
           </div>
         </header>
