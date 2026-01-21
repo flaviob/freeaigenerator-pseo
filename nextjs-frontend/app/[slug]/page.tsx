@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getToolPageBySlug, getAllSlugs } from '@/lib/strapi';
 import { generateMetadata as genMeta, generateArticleSchema, generateFAQSchema } from '@/lib/seo';
+import { parseMarkdown } from '@/lib/markdown';
 
 interface Props {
   params: { slug: string };
@@ -173,25 +174,23 @@ export default async function ToolPage({ params }: Props) {
             {/* Introduction */}
             <div
               className="prose prose-lg max-w-none mb-8"
-              dangerouslySetInnerHTML={{ __html: introduction }}
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(introduction) }}
             />
 
             {/* What Is It */}
             <section id="what-is-it" className="mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-white pb-2 border-b-2 border-[#2a2a2a]">What is {title}?</h2>
               <div
                 className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: whatIsIt }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(whatIsIt) }}
               />
             </section>
 
             {/* How It Works */}
             {howItWorks && (
               <section id="how-it-works" className="mb-12">
-                <h2 className="text-3xl font-bold mb-4 text-white pb-2 border-b-2 border-[#2a2a2a]">How It Works</h2>
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: howItWorks }}
+                  dangerouslySetInnerHTML={{ __html: parseMarkdown(howItWorks) }}
                 />
               </section>
             )}
@@ -211,10 +210,9 @@ export default async function ToolPage({ params }: Props) {
             {/* Use Cases */}
             {useCases && (
               <section id="use-cases" className="mb-12">
-                <h2 className="text-3xl font-bold mb-4 text-white pb-2 border-b-2 border-[#2a2a2a]">Use Cases</h2>
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: useCases }}
+                  dangerouslySetInnerHTML={{ __html: parseMarkdown(useCases) }}
                 />
               </section>
             )}
@@ -286,10 +284,9 @@ export default async function ToolPage({ params }: Props) {
 
             {/* Conclusion */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-white pb-2 border-b-2 border-[#2a2a2a]">Conclusion</h2>
               <div
                 className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: conclusion }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(conclusion) }}
               />
             </section>
 
