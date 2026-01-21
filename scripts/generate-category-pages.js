@@ -92,11 +92,42 @@ function generateToolsList(keyword, category, isFree) {
 
 // Generate category page content
 function generateCategoryPageContent(keyword) {
-  const title = keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const category = getCategory(keyword);
   const listType = getListType(keyword);
   const isFreeOnly = keyword.toLowerCase().includes('free') && !keyword.toLowerCase().includes('best');
   const slug = keyword.toLowerCase().replace(/\s+/g, '-');
+
+  // Generate better title: normalize word order
+  // "ai image generator free" -> "Free AI Image Generators"
+  // "best ai image generator" -> "Best AI Image Generators"
+  const lower = keyword.toLowerCase();
+  const hasBest = lower.includes('best');
+  const hasFree = lower.includes('free');
+
+  // Extract the core term (remove 'best', 'free', 'ai')
+  let coreTerm = lower
+    .replace(/best\s+/g, '')
+    .replace(/free\s+/g, '')
+    .replace(/\s+free$/g, '')
+    .replace(/^ai\s+/g, '')
+    .replace(/\s+ai$/g, '')
+    .trim();
+
+  // Capitalize properly (keep "AI" in all caps)
+  const coreTitle = coreTerm.split(' ').map(w =>
+    w === 'ai' ? 'AI' : w.charAt(0).toUpperCase() + w.slice(1)
+  ).join(' ');
+
+  let title;
+  if (hasBest && hasFree) {
+    title = `Best Free AI ${coreTitle}`;
+  } else if (hasBest) {
+    title = `Best AI ${coreTitle}`;
+  } else if (hasFree) {
+    title = `Free AI ${coreTitle}`;
+  } else {
+    title = `AI ${coreTitle}`;
+  }
 
   const toolsList = generateToolsList(keyword, category, isFreeOnly);
 
@@ -148,27 +179,69 @@ function generateCategoryPageContent(keyword) {
   };
 }
 
-async function createCategoryPage(pageData) {
-  const response = await fetch(`${STRAPI_URL}/api/category-pages`, {
-    method: 'POST',
+async function findExistingPageBySlug(slug) {
+  const response = await fetch(`${STRAPI_URL}/api/category-pages?filters[slug][$eq]=${slug}`, {
     headers: {
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${STRAPI_API_TOKEN}`
-    },
-    body: JSON.stringify({
-      data: {
-        ...pageData,
-        publishedAt: new Date().toISOString()
-      }
-    })
+    }
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`${response.status} - ${error}`);
+  if (response.ok) {
+    const { data } = await response.json();
+    return data.length > 0 ? data[0] : null;
   }
+  return null;
+}
 
-  return response.json();
+async function createOrUpdateCategoryPage(pageData) {
+  // Check if page exists by slug
+  const existing = await findExistingPageBySlug(pageData.slug);
+
+  if (existing) {
+    // Update existing page
+    const response = await fetch(`${STRAPI_URL}/api/category-pages/${existing.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${STRAPI_API_TOKEN}`
+      },
+      body: JSON.stringify({
+        data: {
+          ...pageData,
+          publishedAt: new Date().toISOString()
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`${response.status} - ${error}`);
+    }
+
+    return { updated: true, data: await response.json() };
+  } else {
+    // Create new page
+    const response = await fetch(`${STRAPI_URL}/api/category-pages`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${STRAPI_API_TOKEN}`
+      },
+      body: JSON.stringify({
+        data: {
+          ...pageData,
+          publishedAt: new Date().toISOString()
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`${response.status} - ${error}`);
+    }
+
+    return { updated: false, data: await response.json() };
+  }
 }
 
 async function main() {
@@ -185,35 +258,36 @@ async function main() {
   console.log('Starting generation...\n');
 
   let created = 0;
-  let skipped = 0;
+  let updated = 0;
   let errors = 0;
 
   for (const keyword of categoryKeywords) {
     try {
       const pageData = generateCategoryPageContent(keyword);
-      await createCategoryPage(pageData);
-      console.log(`✅ Created: ${pageData.title}`);
-      created++;
+      const result = await createOrUpdateCategoryPage(pageData);
+
+      if (result.updated) {
+        console.log(`🔄 Updated: ${pageData.title}`);
+        updated++;
+      } else {
+        console.log(`✅ Created: ${pageData.title}`);
+        created++;
+      }
 
       // Small delay to avoid overwhelming the API
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      if (error.message && (error.message.includes('already exists') || error.message.includes('unique'))) {
-        console.log(`⏭️  Skipped (exists): ${keyword}`);
-        skipped++;
-      } else {
-        console.error(`❌ Error (${keyword}):`, error.message || error);
-        if (error.stack) {
-          console.error('Stack trace:', error.stack.split('\n').slice(0, 3).join('\n'));
-        }
-        errors++;
+      console.error(`❌ Error (${keyword}):`, error.message || error);
+      if (error.stack) {
+        console.error('Stack trace:', error.stack.split('\n').slice(0, 3).join('\n'));
       }
+      errors++;
     }
   }
 
   console.log(`\n📊 Summary:`);
   console.log(`   Created: ${created}`);
-  console.log(`   Skipped: ${skipped}`);
+  console.log(`   Updated: ${updated}`);
   console.log(`   Errors: ${errors}`);
   console.log(`   Total: ${categoryKeywords.length}`);
 }

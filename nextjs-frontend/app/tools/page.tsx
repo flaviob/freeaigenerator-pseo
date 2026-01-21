@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: 'Comprehensive guides and reviews for AI generators. Learn how to use image, video, text, audio, and design AI tools effectively.',
 };
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60;
+
 export default async function ToolsPage() {
   const allTools = await getToolPages(100);
 

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: 'Explore AI tools organized by category: Image, Video, Text, Audio, Design and more. Find the best AI generators for your specific needs.',
 };
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60;
+
 export default async function CategoriesPage() {
   const allCategories = await getCategoryPages(100);
 
