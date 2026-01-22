@@ -14,8 +14,14 @@ export async function POST(request: NextRequest) {
     // Anthropic Claude API call
     const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
 
+    console.log('Environment check:', {
+      hasKey: !!anthropicApiKey,
+      keyPrefix: anthropicApiKey?.substring(0, 10)
+    });
+
     if (!anthropicApiKey) {
       console.error('ANTHROPIC_API_KEY not configured');
+      console.error('All env vars:', Object.keys(process.env).filter(k => k.includes('ANTHROPIC')));
       return NextResponse.json(
         { error: 'API not configured' },
         { status: 500 }
