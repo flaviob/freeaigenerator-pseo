@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getToolPageBySlug, getAllSlugs } from '@/lib/strapi';
 import { generateMetadata as genMeta, generateArticleSchema, generateFAQSchema } from '@/lib/seo';
 import { parseMarkdown } from '@/lib/markdown';
+import TwitterPostGenerator from '@/components/TwitterPostGenerator';
 
 interface Props {
   params: { slug: string };
@@ -176,6 +177,11 @@ export default async function ToolPage({ params }: Props) {
               className="prose prose-lg max-w-none mb-8"
               dangerouslySetInnerHTML={{ __html: parseMarkdown(introduction) }}
             />
+
+            {/* Interactive Generator - Show for Twitter Post Generator */}
+            {params.slug === 'ai-twitter-post-generator' && (
+              <TwitterPostGenerator />
+            )}
 
             {/* What Is It */}
             <section id="what-is-it" className="mb-12">
