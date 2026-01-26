@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getToolPageBySlug, getAllSlugs } from '@/lib/strapi';
 import { generateMetadata as genMeta, generateArticleSchema, generateFAQSchema } from '@/lib/seo';
+import { processInternalLinks } from '@/lib/processInternalLinks';
 
 interface Props {
   params: { slug: string };
@@ -69,6 +70,13 @@ export default async function ToolPage({ params }: Props) {
 
   const faqSchema = faq ? generateFAQSchema(faq) : null;
 
+  // Process all richtext content to limit internal links to 5-10 with varied anchor text
+  const processedIntroduction = processInternalLinks(introduction, 2);
+  const processedWhatIsIt = processInternalLinks(whatIsIt, 2);
+  const processedHowItWorks = howItWorks ? processInternalLinks(howItWorks, 2) : null;
+  const processedUseCases = useCases ? processInternalLinks(useCases, 2) : null;
+  const processedConclusion = processInternalLinks(conclusion, 2);
+
   return (
     <>
       {/* Schema Markup */}
@@ -102,9 +110,9 @@ export default async function ToolPage({ params }: Props) {
         </header>
 
         {/* Introduction */}
-        <div 
+        <div
           className="prose prose-lg max-w-none mb-8"
-          dangerouslySetInnerHTML={{ __html: introduction }}
+          dangerouslySetInnerHTML={{ __html: processedIntroduction }}
         />
 
         {/* Table of Contents */}
@@ -124,19 +132,19 @@ export default async function ToolPage({ params }: Props) {
         {/* What Is It */}
         <section id="what-is-it" className="mb-12">
           <h2 className="text-3xl font-bold mb-4">What is {title}?</h2>
-          <div 
+          <div
             className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: whatIsIt }}
+            dangerouslySetInnerHTML={{ __html: processedWhatIsIt }}
           />
         </section>
 
         {/* How It Works */}
-        {howItWorks && (
+        {processedHowItWorks && (
           <section id="how-it-works" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">How {title} Works</h2>
-            <div 
+            <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: howItWorks }}
+              dangerouslySetInnerHTML={{ __html: processedHowItWorks }}
             />
           </section>
         )}
@@ -157,12 +165,12 @@ export default async function ToolPage({ params }: Props) {
         )}
 
         {/* Use Cases */}
-        {useCases && (
+        {processedUseCases && (
           <section id="use-cases" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">Use Cases</h2>
-            <div 
+            <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: useCases }}
+              dangerouslySetInnerHTML={{ __html: processedUseCases }}
             />
           </section>
         )}
@@ -242,9 +250,9 @@ export default async function ToolPage({ params }: Props) {
         {/* Conclusion */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-4">Conclusion</h2>
-          <div 
+          <div
             className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: conclusion }}
+            dangerouslySetInnerHTML={{ __html: processedConclusion }}
           />
         </section>
 
