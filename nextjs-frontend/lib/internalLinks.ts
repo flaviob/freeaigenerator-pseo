@@ -104,7 +104,7 @@ const anchorVariations: { [slug: string]: string[] } = {
  * - No links inside headings
  * - Varied anchor text for duplicate slugs
  */
-export function addInternalLinks(html: string, maxLinks: number = 5): string {
+export function addInternalLinks(html: string, maxLinks: number = 2): string {
   if (!html) return html;
 
   // First, protect headings by marking them
@@ -129,8 +129,8 @@ export function addInternalLinks(html: string, maxLinks: number = 5): string {
       variationIndex[slug] = 0;
     }
 
-    // Skip if we already have 2 links to this slug
-    if (linksPerSlug[slug] >= 2) return;
+    // Skip if we already have 1 link to this slug per section
+    if (linksPerSlug[slug] >= 1) return;
 
     // Create regex that:
     // 1. Matches the tool name
@@ -143,7 +143,7 @@ export function addInternalLinks(html: string, maxLinks: number = 5): string {
 
     processedHtml = processedHtml.replace(regex, (match) => {
       // Check limits
-      if (totalLinksAdded >= maxLinks || linksPerSlug[slug] >= 2) {
+      if (totalLinksAdded >= maxLinks || linksPerSlug[slug] >= 1) {
         return match;
       }
 
