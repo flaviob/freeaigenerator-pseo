@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getToolPageBySlug, getAllSlugs } from '@/lib/strapi';
 import { generateMetadata as genMeta, generateArticleSchema, generateFAQSchema } from '@/lib/seo';
 import { parseMarkdown } from '@/lib/markdown';
+import { addInternalLinks } from '@/lib/internalLinks';
 import TwitterPostGenerator from '@/components/TwitterPostGenerator';
 
 interface Props {
@@ -177,14 +178,14 @@ export default async function ToolPage({ params }: Props) {
             {/* Introduction */}
             <div
               className="prose prose-lg max-w-none mb-8"
-              dangerouslySetInnerHTML={{ __html: parseMarkdown(introduction) }}
+              dangerouslySetInnerHTML={{ __html: addInternalLinks(parseMarkdown(introduction)) }}
             />
 
             {/* What Is It */}
             <section id="what-is-it" className="mb-12">
               <div
                 className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: parseMarkdown(whatIsIt) }}
+                dangerouslySetInnerHTML={{ __html: addInternalLinks(parseMarkdown(whatIsIt)) }}
               />
             </section>
 
@@ -193,7 +194,7 @@ export default async function ToolPage({ params }: Props) {
               <section id="how-it-works" className="mb-12">
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: parseMarkdown(howItWorks) }}
+                  dangerouslySetInnerHTML={{ __html: addInternalLinks(parseMarkdown(howItWorks)) }}
                 />
               </section>
             )}
@@ -215,7 +216,7 @@ export default async function ToolPage({ params }: Props) {
               <section id="use-cases" className="mb-12">
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: parseMarkdown(useCases) }}
+                  dangerouslySetInnerHTML={{ __html: addInternalLinks(parseMarkdown(useCases)) }}
                 />
               </section>
             )}
@@ -289,7 +290,7 @@ export default async function ToolPage({ params }: Props) {
             <section className="mb-12">
               <div
                 className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: parseMarkdown(conclusion) }}
+                dangerouslySetInnerHTML={{ __html: addInternalLinks(parseMarkdown(conclusion)) }}
               />
             </section>
 
