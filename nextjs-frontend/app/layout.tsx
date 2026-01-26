@@ -7,6 +7,25 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: '✨ FreeAIGenerator.co - Best AI Tools & Generators 2026',
   description: 'Discover the best free AI generators for images, videos, text, and more. Compare tools, read reviews, and find the perfect AI solution for your needs.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'FreeAIGenerator.co - Best AI Tools & Generators',
+    description: 'Discover the best free AI generators for images, videos, text, and more.',
+    url: 'https://freeaigenerator.co',
+    siteName: 'FreeAIGenerator.co',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FreeAIGenerator.co - Best AI Tools',
+    description: 'Discover the best free AI generators for images, videos, text, and more.',
+  },
 }
 
 export default function RootLayout({
