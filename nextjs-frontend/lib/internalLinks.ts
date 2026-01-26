@@ -4,54 +4,31 @@
  * Limits total links and varies anchor text for SEO best practices
  */
 
-// Map of tool names to their slugs
+// Map of tool/category names to their slugs
+// ONLY link when the anchor text matches the destination page topic
 const toolLinks: { [key: string]: string } = {
-  // Major tools
+  // Category pages - only exact category name matches
+  'AI Image Generator': '/ai-image-generator',
+  'AI image generator': '/ai-image-generator',
+  'AI Video Generator': '/ai-video-generator',
+  'AI video generator': '/ai-video-generator',
+  'AI Text Generator': '/ai-text-generator',
+  'AI text generator': '/ai-text-generator',
+  'AI Voice Generator': '/ai-voice-generator',
+  'AI voice generator': '/ai-voice-generator',
+  'AI Music Generator': '/ai-music-generator',
+  'AI music generator': '/ai-music-generator',
+  'AI Logo Generator': '/ai-logo-generator',
+  'AI logo generator': '/ai-logo-generator',
+  'AI Character Generator': '/ai-character-generator',
+  'AI character generator': '/ai-character-generator',
+
+  // Specific tool pages (only if we have dedicated pages for them)
   'DALL-E 3': '/dall-e-3',
   'DALL·E 3': '/dall-e-3',
   'DALL-E': '/dall-e-3',
-  'Midjourney': '/midjourney',
-  'ChatGPT': '/chatgpt',
-  'Stable Diffusion': '/ai-image-generator',
-  'Leonardo.ai': '/ai-image-generator',
-
-  // Video tools
-  'Runway ML': '/ai-video-generator',
-  'Pika': '/ai-video-generator',
-  'Synthesia': '/ai-video-generator',
-  'HeyGen': '/ai-video-generator',
-
-  // Text tools
-  'Claude': '/ai-text-generator',
-  'Jasper AI': '/ai-text-generator',
-  'Copy.ai': '/ai-text-generator',
-  'Jasper': '/ai-text-generator',
-
-  // Audio tools
-  'ElevenLabs': '/ai-voice-generator',
-  'Suno': '/ai-music-generator',
-  'Murf AI': '/ai-voice-generator',
-  'Speechify': '/ai-voice-generator',
-
-  // Design tools
-  'Canva AI': '/ai-graphic-design-generator',
-  'Canva': '/ai-graphic-design-generator',
-  'Looka': '/ai-logo-generator',
-  'Adobe Firefly': '/ai-graphic-design-generator',
-  'Designs.ai': '/ai-graphic-design-generator',
-
-  // Character tools
-  'Character.AI': '/ai-character-generator',
-  'Artbreeder': '/ai-character-generator',
-
-  // Categories
-  'AI Image Generator': '/ai-image-generator',
-  'AI Video Generator': '/ai-video-generator',
-  'AI Text Generator': '/ai-text-generator',
-  'AI Voice Generator': '/ai-voice-generator',
-  'AI Music Generator': '/ai-music-generator',
-  'AI Logo Generator': '/ai-logo-generator',
-  'AI Character Generator': '/ai-character-generator',
+  'Bing AI Image Generator': '/bing-ai-image-generator',
+  'Bing Image Creator': '/bing-ai-image-generator',
 };
 
 // Anchor text variations for category links (to avoid repetitive exact-match anchors)
