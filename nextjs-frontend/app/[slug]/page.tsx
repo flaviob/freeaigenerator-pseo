@@ -109,9 +109,6 @@ export default async function ToolPage({ params }: Props) {
                 {category}
               </span>
               <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[#2a2a2a] text-[#9ca3af] border border-[#3a3a3a]">
-                {estimatedReadTime} min read
-              </span>
-              <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[#2a2a2a] text-[#9ca3af] border border-[#3a3a3a]">
                 Updated: {new Date(lastUpdated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
@@ -172,16 +169,16 @@ export default async function ToolPage({ params }: Props) {
               </ol>
             </div>
 
+            {/* Interactive Generator - Show FIRST for Twitter Post Generator */}
+            {params.slug === 'ai-twitter-post-generator' && (
+              <TwitterPostGenerator />
+            )}
+
             {/* Introduction */}
             <div
               className="prose prose-lg max-w-none mb-8"
               dangerouslySetInnerHTML={{ __html: parseMarkdown(introduction) }}
             />
-
-            {/* Interactive Generator - Show for Twitter Post Generator */}
-            {params.slug === 'ai-twitter-post-generator' && (
-              <TwitterPostGenerator />
-            )}
 
             {/* What Is It */}
             <section id="what-is-it" className="mb-12">
