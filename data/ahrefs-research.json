@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-01-21T19:46:09.507Z",
+  "keywords": {
+    "base": [
+      {
+        "keyword": "ai image generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai video generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai text generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai art generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai logo generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "free ai image generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai generator",
+        "error": "Ahrefs API error (404): Not found"
+      },
+      {
+        "keyword": "ai voice generator",
+        "error": "Ahrefs API error (404): Not found"
+      }
+    ],
+    "related": [],
+    "suggestions": []
+  },
+  "competitors": {
+    "midjourney.com": {
+      "domain": "midjourney.com",
+      "error": "Ahrefs API error (404): Not found"
+    },
+    "openai.com": {
+      "domain": "openai.com",
+      "error": "Ahrefs API error (404): Not found"
+    },
+    "canva.com": {
+      "domain": "canva.com",
+      "error": "Ahrefs API error (404): Not found"
+    }
+  },
+  "recommendations": []
+}

@@ -1,0 +1,132 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tool_pages",
+  "info": {
+    "singularName": "tool-page",
+    "pluralName": "tool-pages",
+    "displayName": "Tool Page",
+    "description": "Individual AI generator tool pages"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "metaTitle": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "image",
+        "video",
+        "text",
+        "audio",
+        "design",
+        "character",
+        "photo",
+        "other"
+      ],
+      "required": true
+    },
+    "primaryKeyword": {
+      "type": "string",
+      "required": true
+    },
+    "secondaryKeywords": {
+      "type": "json",
+      "required": false
+    },
+    "introduction": {
+      "type": "richtext",
+      "required": true
+    },
+    "whatIsIt": {
+      "type": "richtext",
+      "required": true
+    },
+    "howItWorks": {
+      "type": "richtext",
+      "required": false
+    },
+    "features": {
+      "type": "json",
+      "required": false
+    },
+    "useCases": {
+      "type": "richtext",
+      "required": false
+    },
+    "topTools": {
+      "type": "json",
+      "required": false
+    },
+    "prosAndCons": {
+      "type": "json",
+      "required": false
+    },
+    "faq": {
+      "type": "json",
+      "required": false
+    },
+    "conclusion": {
+      "type": "richtext",
+      "required": true
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "isFree": {
+      "type": "boolean",
+      "default": true
+    },
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "beginner"
+    },
+    "estimatedReadTime": {
+      "type": "integer",
+      "default": 5
+    },
+    "lastUpdated": {
+      "type": "date",
+      "required": true
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "schemaMarkup": {
+      "type": "json",
+      "required": false
+    }
+  }
+}

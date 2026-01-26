@@ -1,77 +1,112 @@
-// app/layout.tsx
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Free AI Generator - Best AI Tools & Generators 2026',
-  description: 'Discover the best free AI generators for images, videos, text, music, and more. Compare tools, read expert reviews, and find the perfect AI solution.',
-  keywords: 'ai generator, free ai tools, ai image generator, ai video generator, ai text generator',
-};
+  title: '✨ FreeAIGenerator.co - Best AI Tools & Generators 2026',
+  description: 'Discover the best free AI generators for images, videos, text, and more. Compare tools, read reviews, and find the perfect AI solution for your needs.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'FreeAIGenerator.co - Best AI Tools & Generators',
+    description: 'Discover the best free AI generators for images, videos, text, and more.',
+    url: 'https://freeaigenerator.co',
+    siteName: 'FreeAIGenerator.co',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FreeAIGenerator.co - Best AI Tools',
+    description: 'Discover the best free AI generators for images, videos, text, and more.',
+  },
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-gray-900">
-        <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
-          <div className="max-w-6xl mx-auto px-4 py-6">
-            <div className="flex items-center justify-between">
-              <a href="/" className="text-2xl font-bold hover:opacity-90 transition">
-                🤖 FreeAIGenerator
-              </a>
-              <nav className="hidden md:flex gap-6">
-                <a href="/" className="hover:opacity-80 transition">Home</a>
-                <a href="/best/best-ai-image-generators" className="hover:opacity-80 transition">Best Tools</a>
-                <a href="/compare/midjourney-vs-dalle" className="hover:opacity-80 transition">Comparisons</a>
-              </nav>
-            </div>
+      <body className={inter.className}>
+        <header className="bg-[#1a1a1a] text-white py-4 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+          <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between">
+            <a href="/" className="text-2xl font-bold flex items-center gap-2">
+              <span>✨</span>
+              <span>FreeAIGenerator.co</span>
+            </a>
+            <nav className="flex gap-8">
+              <a href="/" className="opacity-90 hover:opacity-100 transition-opacity">Home</a>
+              <a href="/tools" className="opacity-90 hover:opacity-100 transition-opacity">Tools</a>
+              <a href="/categories" className="opacity-90 hover:opacity-100 transition-opacity">Categories</a>
+              <a href="/about" className="opacity-90 hover:opacity-100 transition-opacity">About</a>
+              <a href="/submit" className="opacity-90 hover:opacity-100 transition-opacity">Submit</a>
+            </nav>
           </div>
         </header>
-
-        <main className="min-h-screen">
-          {children}
-        </main>
-
-        <footer className="bg-gray-900 text-gray-300 mt-16">
-          <div className="max-w-6xl mx-auto px-4 py-12">
-            <div className="grid md:grid-cols-4 gap-8">
+        <main>{children}</main>
+        <footer className="bg-[#1f2937] text-[#9ca3af] py-12 mt-16">
+          <div className="max-w-[1200px] mx-auto px-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+              {/* Brand */}
               <div>
-                <h3 className="text-white font-bold text-lg mb-4">FreeAIGenerator</h3>
-                <p className="text-sm">Your guide to the best AI tools and generators in 2026.</p>
+                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                  <span>✨</span>
+                  <span>FreeAIGenerator.co</span>
+                </h3>
+                <p className="text-sm">
+                  Discover the best free AI generators for images, videos, text, and more.
+                </p>
               </div>
+
+              {/* Categories */}
               <div>
                 <h4 className="text-white font-semibold mb-4">Categories</h4>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="/ai-image-generator" className="hover:text-white transition">Image Generators</a></li>
-                  <li><a href="/ai-video-generator" className="hover:text-white transition">Video Generators</a></li>
-                  <li><a href="/ai-text-generator" className="hover:text-white transition">Text Generators</a></li>
-                  <li><a href="/ai-voice-generator" className="hover:text-white transition">Voice Generators</a></li>
+                  <li><a href="/category/best-ai-image-generators" className="hover:text-white transition-colors">Image Generators</a></li>
+                  <li><a href="/category/best-ai-video-generators" className="hover:text-white transition-colors">Video Generators</a></li>
+                  <li><a href="/category/best-ai-text-generators" className="hover:text-white transition-colors">Text Generators</a></li>
+                  <li><a href="/category/best-ai-audio-generators" className="hover:text-white transition-colors">Audio Generators</a></li>
+                  <li><a href="/category/best-ai-design-generators" className="hover:text-white transition-colors">Design Generators</a></li>
                 </ul>
               </div>
+
+              {/* Popular Tools */}
               <div>
-                <h4 className="text-white font-semibold mb-4">Resources</h4>
+                <h4 className="text-white font-semibold mb-4">Popular Tools</h4>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="/best/best-ai-image-generators" className="hover:text-white transition">Best AI Tools</a></li>
-                  <li><a href="/best/best-free-ai-image-generators" className="hover:text-white transition">Free AI Tools</a></li>
+                  <li><a href="/ai-twitter-post-generator" className="hover:text-white transition-colors">Twitter Post Generator</a></li>
+                  <li><a href="/ai-image-generator" className="hover:text-white transition-colors">AI Image Generator</a></li>
+                  <li><a href="/ai-video-generator" className="hover:text-white transition-colors">AI Video Generator</a></li>
+                  <li><a href="/ai-text-generator" className="hover:text-white transition-colors">AI Text Generator</a></li>
                 </ul>
               </div>
+
+              {/* Company */}
               <div>
-                <h4 className="text-white font-semibold mb-4">Legal</h4>
+                <h4 className="text-white font-semibold mb-4">Company</h4>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
-                  <li><a href="/terms" className="hover:text-white transition">Terms of Service</a></li>
+                  <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="/submit" className="hover:text-white transition-colors">Submit a Tool</a></li>
+                  <li><a href="/tools" className="hover:text-white transition-colors">All Tools</a></li>
+                  <li><a href="/categories" className="hover:text-white transition-colors">All Categories</a></li>
                 </ul>
               </div>
             </div>
-            <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-              <p>&copy; 2026 FreeAIGenerator.com - All rights reserved</p>
+
+            <div className="border-t border-[#374151] pt-8 text-center text-sm">
+              <p>&copy; 2026 FreeAIGenerator.co. All rights reserved.</p>
             </div>
           </div>
         </footer>
       </body>
     </html>
-  );
+  )
 }

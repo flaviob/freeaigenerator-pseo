@@ -1,16 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost', 'railway.app'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.railway.app',
+        hostname: 'freeaigenerator-pseo-production.up.railway.app',
       },
     ],
-  },
-  experimental: {
-    serverActions: true,
   },
 };
 

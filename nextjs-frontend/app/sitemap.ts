@@ -1,49 +1,66 @@
 // app/sitemap.ts
 import { MetadataRoute } from 'next';
-import { getAllSlugs } from '@/lib/strapi';
+import { getToolPages, getCategoryPages } from '@/lib/strapi';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freeaigenerator.com';
+  const baseUrl = 'https://pacific-abundance-production-4fff.up.railway.app';
 
-  // Fetch all slugs from Strapi
-  const slugs = await getAllSlugs();
+  try {
+    // Fetch all content
+    const [toolPages, categoryPages] = await Promise.all([
+      getToolPages(1000), // Get all tool pages
+      getCategoryPages(1000) // Get all category pages
+    ]);
 
-  // Homepage
-  const homepage = {
-    url: baseUrl,
-    lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: 1.0,
-  };
+    // Static pages
+    const staticPages: MetadataRoute.Sitemap = [
+      {
+        url: baseUrl,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 1.0,
+      },
+      {
+        url: `${baseUrl}/tools`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/categories`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+    ];
 
-  // Tool pages
-  const toolPages = slugs.tools.map((slug) => ({
-    url: `${baseUrl}/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }));
+    // Tool pages
+    const toolPagesSitemap: MetadataRoute.Sitemap = toolPages.map((page: any) => ({
+      url: `${baseUrl}/${page.slug}`,
+      lastModified: page.lastUpdated ? new Date(page.lastUpdated) : new Date(page.updatedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
 
-  // Comparison pages
-  const comparisonPages = slugs.comparisons.map((slug) => ({
-    url: `${baseUrl}/compare/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+    // Category pages
+    const categoryPagesSitemap: MetadataRoute.Sitemap = categoryPages.map((page: any) => ({
+      url: `${baseUrl}/category/${page.slug}`,
+      lastModified: page.lastUpdated ? new Date(page.lastUpdated) : new Date(page.updatedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
 
-  // Category pages
-  const categoryPages = slugs.categories.map((slug) => ({
-    url: `${baseUrl}/best/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }));
-
-  return [
-    homepage,
-    ...toolPages,
-    ...comparisonPages,
-    ...categoryPages,
-  ];
+    return [...staticPages, ...toolPagesSitemap, ...categoryPagesSitemap];
+  } catch (error) {
+    console.error('Sitemap generation error:', error);
+    // Return at least static pages if there's an error
+    return [
+      {
+        url: baseUrl,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 1.0,
+      },
+    ];
+  }
 }

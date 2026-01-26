@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-01-21T20:04:52.811Z",
+  "results": [
+    {
+      "filename": "bing-ai-image-generator.json",
+      "status": "success",
+      "documentId": "kxeujlzlk30f2x2aw3grfdys"
+    },
+    {
+      "filename": "ai-text-generator.json",
+      "status": "success",
+      "documentId": "yamkaxg9ixfkih4pkd1ze0vd"
+    },
+    {
+      "filename": "ai-logo-generator.json",
+      "status": "failed",
+      "error": "HTTP 400: {\"data\":null,\"error\":{\"status\":400,\"name\":\"ValidationError\",\"message\":\"metaDescription must be at most 160 characters\",\"details\":{\"errors\":[{\"path\":[\"metaDescription\"],\"message\":\"metaDescription must be at most 160 characters\",\"name\":\"ValidationError\",\"value\":\"Create professional logos with AI logo generators. Compare top tools like Looka, Designs.ai, and more. Free and paid options with customization features reviewed.\"}]}}}"
+    }
+  ],
+  "summary": {
+    "success": 2,
+    "failed": 1
+  }
+}
