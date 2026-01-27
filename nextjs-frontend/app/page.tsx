@@ -74,20 +74,20 @@ export default async function Home() {
       <section className="mb-16">
         <h2 className="text-3xl font-bold mb-8 text-white">Popular Categories</h2>
         <div className="grid md:grid-cols-4 gap-6">
-          {['Image', 'Video', 'Text', 'Audio'].map((category) => (
+          {[
+            { name: 'Image', slug: 'ai-image-generator', emoji: '🎨' },
+            { name: 'Video', slug: 'ai-video-generator', emoji: '🎬' },
+            { name: 'Text', slug: 'ai-text-generator', emoji: '✍️' },
+            { name: 'Voice', slug: 'ai-voice-generator', emoji: '🎵' },
+          ].map((category) => (
             <a
-              key={category}
-              href={`/category/${category.toLowerCase()}`}
+              key={category.name}
+              href={`/${category.slug}`}
               className="p-6 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg hover:shadow-lg hover:border-[#ef4444] transition text-center"
             >
-              <div className="text-4xl mb-3">
-                {category === 'Image' && '🎨'}
-                {category === 'Video' && '🎬'}
-                {category === 'Text' && '✍️'}
-                {category === 'Audio' && '🎵'}
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">{category} AI</h3>
-              <p className="text-[#9ca3af] text-sm">Explore {category.toLowerCase()} generators</p>
+              <div className="text-4xl mb-3">{category.emoji}</div>
+              <h3 className="text-xl font-semibold mb-2 text-white">{category.name} AI</h3>
+              <p className="text-[#9ca3af] text-sm">Explore {category.name.toLowerCase()} generators</p>
             </a>
           ))}
         </div>
