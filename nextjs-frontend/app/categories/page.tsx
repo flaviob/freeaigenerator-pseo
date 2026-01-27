@@ -1,5 +1,6 @@
 import { getCategoryPages } from '@/lib/strapi';
 import { Metadata } from 'next';
+import { generateBreadcrumbSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'AI Tool Categories - Browse by Type | Free AI Generator',
@@ -8,6 +9,20 @@ export const metadata: Metadata = {
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
+
+// Collection page schema
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'AI Tool Categories',
+  description: 'Explore AI tools organized by category: Image, Video, Text, Audio, Design and more.',
+  url: 'https://freeaigenerator.com/categories',
+};
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: 'https://freeaigenerator.com' },
+  { name: 'Categories', url: 'https://freeaigenerator.com/categories' },
+]);
 
 export default async function CategoriesPage() {
   const allCategories = await getCategoryPages(100);
@@ -36,6 +51,17 @@ export default async function CategoriesPage() {
   ];
 
   return (
+    <>
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
     <div className="min-h-screen bg-[#0a0a0a]">
       <div className="max-w-[1200px] mx-auto px-8 py-12">
         {/* Hero Section */}
@@ -102,12 +128,11 @@ export default async function CategoriesPage() {
                     </p>
 
                     {/* Meta Info */}
-                    <div className="flex items-center gap-3 text-xs text-[#6b7280]">
-                      <span>{page.estimatedReadTime} min read</span>
-                      {page.lastUpdated && (
-                        <span>{new Date(page.lastUpdated).toLocaleDateString()}</span>
-                      )}
-                    </div>
+                    {page.lastUpdated && (
+                      <div className="text-xs text-[#6b7280]">
+                        {new Date(page.lastUpdated).toLocaleDateString()}
+                      </div>
+                    )}
                   </a>
                 ))}
               </div>
@@ -145,5 +170,6 @@ export default async function CategoriesPage() {
         </section>
       </div>
     </div>
+    </>
   );
 }
