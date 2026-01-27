@@ -5,10 +5,26 @@ export const metadata: Metadata = {
   description: 'Learn about FreeAIGenerator.co, your trusted source for discovering and comparing the best free AI tools and generators.',
 };
 
+// Organization Schema
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'FreeAIGenerator',
+  url: 'https://freeaigenerator.com',
+  logo: 'https://freeaigenerator.com/logo.png',
+  description: 'Your trusted source for discovering and comparing the best free AI tools and generators.',
+  sameAs: [],
+};
+
 export default function AboutPage() {
   return (
-    <div className="max-w-[800px] mx-auto px-8 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-white">About FreeAIGenerator.co</h1>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <div className="max-w-[800px] mx-auto px-8 py-12">
+        <h1 className="text-4xl font-bold mb-8 text-white">About FreeAIGenerator.co</h1>
 
       <div className="bg-[#1a1a1a] p-8 rounded-xl mb-8 border border-[#2a2a2a]">
         <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
@@ -83,6 +99,7 @@ export default function AboutPage() {
           Submit a Tool
         </a>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
