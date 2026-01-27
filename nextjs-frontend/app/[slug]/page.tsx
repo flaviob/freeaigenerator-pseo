@@ -58,7 +58,6 @@ export default async function ToolPage({ params }: Props) {
     conclusion,
     category,
     isFree,
-    estimatedReadTime,
     lastUpdated,
     metaDescription,
     createdAt,

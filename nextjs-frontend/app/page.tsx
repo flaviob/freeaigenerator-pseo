@@ -3,6 +3,29 @@ import { getToolPages, getCategoryPages } from '@/lib/strapi';
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
 
+// Website schema for homepage
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'FreeAIGenerator',
+  url: 'https://freeaigenerator.com',
+  description: 'Discover the best free AI generators for images, videos, text, and more.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://freeaigenerator.com/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'FreeAIGenerator',
+  url: 'https://freeaigenerator.com',
+  logo: 'https://freeaigenerator.com/logo.png',
+  sameAs: [],
+};
+
 export default async function Home() {
   const [toolPages, categoryPages] = await Promise.all([
     getToolPages(6),
@@ -10,6 +33,17 @@ export default async function Home() {
   ]);
 
   return (
+    <>
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+
     <div className="max-w-[1200px] mx-auto px-8 py-12">
       {/* Hero Section */}
       <section className="text-center mb-16">
@@ -89,10 +123,11 @@ export default async function Home() {
                 <p className="text-[#9ca3af] text-sm mb-3 line-clamp-2">
                   {page.metaDescription}
                 </p>
-                <div className="flex items-center gap-3 text-xs text-[#6b7280]">
-                  <span>{page.estimatedReadTime} min read</span>
-                  {page.year && <span>{page.year}</span>}
-                </div>
+                {page.year && (
+                  <div className="text-xs text-[#6b7280]">
+                    <span>{page.year}</span>
+                  </div>
+                )}
               </a>
             ))}
           </div>
@@ -129,8 +164,7 @@ export default async function Home() {
                 <p className="text-[#9ca3af] text-sm mb-3 line-clamp-2">
                   {tool.metaDescription}
                 </p>
-                <div className="flex items-center gap-3 text-xs text-[#6b7280]">
-                  <span>{tool.estimatedReadTime} min read</span>
+                <div className="text-xs text-[#6b7280]">
                   <span>{new Date(tool.lastUpdated).toLocaleDateString()}</span>
                 </div>
               </a>
@@ -157,5 +191,6 @@ export default async function Home() {
         </a>
       </section>
     </div>
+    </>
   );
 }

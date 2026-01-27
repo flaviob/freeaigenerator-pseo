@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import ToolCard from '@/components/ToolCard';
 import ComparisonTable from '@/components/ComparisonTable';
+import { generateArticleSchema, generateFAQSchema, generateBreadcrumbSchema, generateComparisonSchema } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
@@ -48,11 +49,59 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     conclusion,
     isFreeOnly,
     year,
-    estimatedReadTime,
     lastUpdated,
+    createdAt,
   } = page;
 
+  // Generate schema markup
+  const articleSchema = generateArticleSchema({
+    title,
+    description: metaDescription,
+    slug: params.slug,
+    publishedTime: createdAt || lastUpdated,
+    modifiedTime: lastUpdated,
+  });
+
+  const faqSchema = faq ? generateFAQSchema(faq) : null;
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://freeaigenerator.com' },
+    { name: 'Categories', url: 'https://freeaigenerator.com/categories' },
+    { name: title, url: `https://freeaigenerator.com/category/${params.slug}` },
+  ]);
+
+  const comparisonSchema = toolsList ? generateComparisonSchema({
+    name: title,
+    items: toolsList.map((tool: any) => ({
+      name: tool.name,
+      url: tool.url,
+    })),
+  }) : null;
+
   return (
+    <>
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {comparisonSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(comparisonSchema) }}
+        />
+      )}
+
     <div className="min-h-screen bg-[#0a0a0a]">
       <div className="max-w-[1200px] mx-auto px-8 py-12">
         {/* Breadcrumbs */}
@@ -77,9 +126,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                 Free Only
               </span>
             )}
-            <span className="px-4 py-1 bg-[#1a1a1a] text-[#9ca3af] rounded-full text-sm">
-              {estimatedReadTime} min read
-            </span>
             {year && (
               <span className="px-4 py-1 bg-[#1a1a1a] text-[#9ca3af] rounded-full text-sm">
                 {year}
@@ -239,5 +285,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         </section>
       </div>
     </div>
+    </>
   );
 }
