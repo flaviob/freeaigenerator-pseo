@@ -297,13 +297,13 @@ export default async function ToolPage({ params }: Props) {
             <div className="bg-[#2a2a2a] p-8 rounded-lg mb-12 border-l-4 border-[#ef4444]">
               <h3 className="text-xl font-bold mb-4 text-white mt-0">Related Articles</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href={`/${category.toLowerCase()}-generator-free`} className="block p-4 bg-[#1a1a1a] rounded-md border border-[#3a3a3a] text-[#e5e7eb] font-medium hover:-translate-y-0.5 hover:shadow-md hover:border-[#ef4444] hover:text-[#ef4444] transition-all">
-                  <div className="text-xs text-[#6b7280] uppercase tracking-wider mb-1">Free Tools</div>
-                  Free {title}
+                <a href={`/ai-${category.toLowerCase()}-generator`} className="block p-4 bg-[#1a1a1a] rounded-md border border-[#3a3a3a] text-[#e5e7eb] font-medium hover:-translate-y-0.5 hover:shadow-md hover:border-[#ef4444] hover:text-[#ef4444] transition-all">
+                  <div className="text-xs text-[#6b7280] uppercase tracking-wider mb-1">Guide</div>
+                  AI {category.charAt(0).toUpperCase() + category.slice(1)} Generator Guide
                 </a>
-                <a href={`/best-${category.toLowerCase()}-generators`} className="block p-4 bg-[#1a1a1a] rounded-md border border-[#3a3a3a] text-[#e5e7eb] font-medium hover:-translate-y-0.5 hover:shadow-md hover:border-[#ef4444] hover:text-[#ef4444] transition-all">
+                <a href={`/category/best-ai-${category.toLowerCase()}-generators`} className="block p-4 bg-[#1a1a1a] rounded-md border border-[#3a3a3a] text-[#e5e7eb] font-medium hover:-translate-y-0.5 hover:shadow-md hover:border-[#ef4444] hover:text-[#ef4444] transition-all">
                   <div className="text-xs text-[#6b7280] uppercase tracking-wider mb-1">Comparison</div>
-                  Best {title} Tools
+                  Best AI {category.charAt(0).toUpperCase() + category.slice(1)} Generators
                 </a>
               </div>
             </div>
