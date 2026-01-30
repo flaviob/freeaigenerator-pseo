@@ -16,12 +16,12 @@ const collectionSchema = {
   '@type': 'CollectionPage',
   name: 'AI Tool Guides & Reviews',
   description: 'Comprehensive guides and reviews for AI generators.',
-  url: 'https://freeaigenerator.com/tools',
+  url: 'https://freeaigenerator.co/tools',
 };
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: 'Home', url: 'https://freeaigenerator.com' },
-  { name: 'Tools', url: 'https://freeaigenerator.com/tools' },
+  { name: 'Home', url: 'https://freeaigenerator.co' },
+  { name: 'Tools', url: 'https://freeaigenerator.co/tools' },
 ]);
 
 export default async function ToolsPage() {

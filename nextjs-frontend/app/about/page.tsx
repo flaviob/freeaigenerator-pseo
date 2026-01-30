@@ -10,8 +10,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'FreeAIGenerator',
-  url: 'https://freeaigenerator.com',
-  logo: 'https://freeaigenerator.com/logo.png',
+  url: 'https://freeaigenerator.co',
+  logo: 'https://freeaigenerator.co/logo.png',
   description: 'Your trusted source for discovering and comparing the best free AI tools and generators.',
   sameAs: [],
 };
