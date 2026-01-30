@@ -1,7 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Simple in-memory rate limiter: max 10 requests per IP per minute
+const rateLimit = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimit.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const { topic, tone, format } = await request.json();
 
     if (!topic) {
@@ -14,14 +39,8 @@ export async function POST(request: NextRequest) {
     // Anthropic Claude API call
     const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
 
-    console.log('Environment check:', {
-      hasKey: !!anthropicApiKey,
-      keyPrefix: anthropicApiKey?.substring(0, 10)
-    });
-
     if (!anthropicApiKey) {
       console.error('ANTHROPIC_API_KEY not configured');
-      console.error('All env vars:', Object.keys(process.env).filter(k => k.includes('ANTHROPIC')));
       return NextResponse.json(
         { error: 'API not configured' },
         { status: 500 }
