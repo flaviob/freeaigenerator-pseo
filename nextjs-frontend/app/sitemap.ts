@@ -2,8 +2,11 @@
 import { MetadataRoute } from 'next';
 import { getToolPages, getCategoryPages } from '@/lib/strapi';
 
+// Force dynamic generation so sitemap is always fresh
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://pacific-abundance-production-4fff.up.railway.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freeaigenerator.com';
 
   try {
     // Fetch all content
