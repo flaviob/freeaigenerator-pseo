@@ -65,9 +65,9 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   const faqSchema = faq ? generateFAQSchema(faq) : null;
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://freeaigenerator.com' },
-    { name: 'Categories', url: 'https://freeaigenerator.com/categories' },
-    { name: title, url: `https://freeaigenerator.com/category/${params.slug}` },
+    { name: 'Home', url: 'https://freeaigenerator.co' },
+    { name: 'Categories', url: 'https://freeaigenerator.co/categories' },
+    { name: title, url: `https://freeaigenerator.co/category/${params.slug}` },
   ]);
 
   const comparisonSchema = toolsList ? generateComparisonSchema({

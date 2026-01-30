@@ -16,12 +16,12 @@ const collectionSchema = {
   '@type': 'CollectionPage',
   name: 'AI Tool Categories',
   description: 'Explore AI tools organized by category: Image, Video, Text, Audio, Design and more.',
-  url: 'https://freeaigenerator.com/categories',
+  url: 'https://freeaigenerator.co/categories',
 };
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: 'Home', url: 'https://freeaigenerator.com' },
-  { name: 'Categories', url: 'https://freeaigenerator.com/categories' },
+  { name: 'Home', url: 'https://freeaigenerator.co' },
+  { name: 'Categories', url: 'https://freeaigenerator.co/categories' },
 ]);
 
 export default async function CategoriesPage() {

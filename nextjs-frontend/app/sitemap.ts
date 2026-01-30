@@ -6,7 +6,7 @@ import { getToolPages, getCategoryPages } from '@/lib/strapi';
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freeaigenerator.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freeaigenerator.co';
 
   try {
     // Fetch all content

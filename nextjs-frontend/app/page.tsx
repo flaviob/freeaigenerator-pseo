@@ -8,11 +8,11 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'FreeAIGenerator',
-  url: 'https://freeaigenerator.com',
+  url: 'https://freeaigenerator.co',
   description: 'Discover the best free AI generators for images, videos, text, and more.',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://freeaigenerator.com/search?q={search_term_string}',
+    target: 'https://freeaigenerator.co/search?q={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 };
@@ -21,8 +21,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'FreeAIGenerator',
-  url: 'https://freeaigenerator.com',
-  logo: 'https://freeaigenerator.com/logo.png',
+  url: 'https://freeaigenerator.co',
+  logo: 'https://freeaigenerator.co/logo.png',
   sameAs: [],
 };
 

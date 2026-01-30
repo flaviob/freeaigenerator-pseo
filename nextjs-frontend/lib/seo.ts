@@ -22,8 +22,8 @@ export function generateMetadata({
   image,
   noindex = false,
 }: SEOProps): Metadata {
-  const url = `https://freeaigenerator.com/${slug}`;
-  const defaultImage = 'https://freeaigenerator.com/og-image.jpg';
+  const url = `https://freeaigenerator.co/${slug}`;
+  const defaultImage = 'https://freeaigenerator.co/og-image.jpg';
 
   return {
     title,
@@ -73,20 +73,20 @@ export function generateArticleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    url: `https://freeaigenerator.com/${article.slug}`,
+    url: `https://freeaigenerator.co/${article.slug}`,
     datePublished: article.publishedTime,
     dateModified: article.modifiedTime,
     author: {
       '@type': 'Organization',
       name: article.author || 'FreeAIGenerator',
-      url: 'https://freeaigenerator.com',
+      url: 'https://freeaigenerator.co',
     },
     publisher: {
       '@type': 'Organization',
       name: 'FreeAIGenerator',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://freeaigenerator.com/logo.png',
+        url: 'https://freeaigenerator.co/logo.png',
       },
     },
     ...(article.image && {
