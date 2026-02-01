@@ -24,13 +24,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const { metaTitle, metaDescription, slug, lastUpdated } = page.attributes;
+  const { metaTitle, metaDescription, slug, lastUpdated } = page;
 
   return genMeta({
     title: metaTitle,
     description: metaDescription,
     slug: `compare/${slug}`,
-    publishedTime: page.attributes.createdAt,
+    publishedTime: page.createdAt,
     modifiedTime: lastUpdated,
   });
 }
@@ -60,14 +60,14 @@ export default async function ComparisonPage({ params }: Props) {
     conclusion,
     category,
     lastUpdated,
-  } = page.attributes;
+  } = page;
 
   // Generate schema markup
   const articleSchema = generateArticleSchema({
     title,
-    description: page.attributes.metaDescription,
+    description: page.metaDescription,
     slug: `compare/${params.slug}`,
-    publishedTime: page.attributes.createdAt,
+    publishedTime: page.createdAt,
     modifiedTime: lastUpdated,
   });
 
