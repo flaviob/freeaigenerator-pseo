@@ -123,4 +123,14 @@ export async function searchPages(query: string, limit = 20) {
   };
 }
 
+// Get homepage single type
+export async function getHomepage() {
+  try {
+    const response = await fetchAPI<any>('/homepage');
+    return response.data;
+  } catch {
+    return null;
+  }
+}
+
 export { STRAPI_URL };

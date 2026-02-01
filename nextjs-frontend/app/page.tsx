@@ -1,7 +1,31 @@
-import { getToolPages, getCategoryPages } from '@/lib/strapi';
+import { Metadata } from 'next';
+import { getToolPages, getCategoryPages, getHomepage } from '@/lib/strapi';
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const homepage = await getHomepage();
+  const title = homepage?.metaTitle || '✨ FreeAIGenerator.co - Best AI Tools & Generators 2026';
+  const description = homepage?.metaDescription || 'Discover the best free AI generators for images, videos, text, and more. Compare tools, read reviews, and find the perfect AI solution for your needs.';
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: 'https://freeaigenerator.co',
+      siteName: 'FreeAIGenerator.co',
+      locale: 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
+}
 
 // Website schema for homepage
 const websiteSchema = {
@@ -27,9 +51,10 @@ const organizationSchema = {
 };
 
 export default async function Home() {
-  const [toolPages, categoryPages] = await Promise.all([
+  const [toolPages, categoryPages, homepage] = await Promise.all([
     getToolPages(6),
-    getCategoryPages(3)
+    getCategoryPages(3),
+    getHomepage(),
   ]);
 
   return (
@@ -48,7 +73,7 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="text-center mb-16">
         <h1 className="text-5xl font-bold mb-6 text-white">
-          Discover the Best Free AI Generators
+          {homepage?.h1 || 'Discover the Best Free AI Generators'}
         </h1>
         <p className="text-xl text-[#d1d5db] max-w-3xl mx-auto mb-8">
           Explore hundreds of AI tools for image generation, video creation, text writing, and more.
